@@ -5,12 +5,18 @@
 
 ## Tools I used, and for what
 
-<!-- e.g. "Claude for the pipeline skeleton; Copilot autocomplete in time_split" -->
+I used Codex to explain the task, guide me through the implementation,
+and suggest tests for history, the time split, and the pipeline.
 
 ## AI-suggested code I rejected or fixed in add_history_features or time_split
 
-<!-- What was wrong, and which test (public, your own, or a grader test name) showed it. -->
+I rejected a suggestion to use a row-by-row cumulative count for customer
+history. I tested it with two parcels at the same timestamp: it returned
+[0, 1, 2] instead of [0, 1, 1], so it incorrectly counted one tied parcel
+as prior to the other.
 
 ## How I checked that my model has no leak
 
-<!-- One sentence. -->
+I excluded post-delivery columns and the target from the model features,
+checked that customer history uses only earlier timestamps, and split
+training and test data by time.
